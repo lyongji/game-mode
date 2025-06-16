@@ -3,11 +3,11 @@ add_rules("mode.debug", "mode.release")
 set_encodings("utf-8")
 set_languages("c++23")
 
-target("设计模式")
-set_kind("binary")
-add_files("src/*.cpp")
-target_end()
---
+add_includedirs("include/")
+
+includes("**/xmake.lua")--搜索目录下所有子构建
+
+
 -- If you want to known more usage about xmake, please see https://xmake.io
 --
 -- ## FAQ
@@ -19,7 +19,6 @@ target_end()
 -- 1. How to build project?
 --
 --   $ xmake
---
 -- 2. How to configure project?
 --
 --   $ xmake f -p [macosx|linux|iphoneos ..] -a [x86_64|i386|arm64 ..] -m [debug|release]
