@@ -4,7 +4,7 @@
 int main() {
   using namespace ftxui; // 使用FTXUI命名空间
 
-  // 创建一个简单的文档，包含三个文本元素
+  // 创建一个简单的文档，包含三个文本元素 Element
   Element 文档 =
       vbox(hbox({
                // 水平排列的盒子
