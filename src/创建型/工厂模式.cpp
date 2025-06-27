@@ -1,7 +1,6 @@
 #include <functional>
 #include <memory>
 #include <print>
-#include <stdexcept>
 #include <utility>
 
 struct 子弹 {
@@ -45,12 +44,19 @@ public:
   // 带参数构造 - 使用完美转发
   template <typename... 参数类型>
     requires std::constructible_from<子弹类, 参数类型...>
-  explicit 子弹枪(参数类型 &&...参数)
-      : 创建函数([... 捕获参数 = std::forward<参数类型>(
-                      参数)]() mutable -> std::unique_ptr<子弹类> {
-          return std::make_unique<子弹类>(
-              std::forward<decltype(捕获参数)>(捕获参数)...);
-        }) {}
+  explicit 子弹枪(参数类型 &&...参数) {
+    using 存储类型 = std::tuple<std::decay_t<参数类型>...>;
+    auto 参数存储 = std::make_shared<存储类型>(std::forward<参数类型>(参数)...);
+
+    创建函数 = [参数存储] {
+      return std::apply(
+          [](auto &&...args) {
+            return std::make_unique<子弹类>(
+                std::forward<decltype(args)>(args)...);
+          },
+          *参数存储);
+    };
+  }
   // 初始化列表专用构造函数
   template <typename T>
     requires requires(std::initializer_list<T> il) {
@@ -90,6 +96,7 @@ int main() {
   auto ak47 = 子弹枪<ak47子弹>(100);
   auto b2 = ak47.射击();
   b2->激发(); // 造成100点物理伤害
+  玩家(ak47);
 
   // 3. 带复杂参数
   struct 元素子弹 : 子弹 {
