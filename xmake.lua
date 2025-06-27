@@ -2,9 +2,9 @@ add_rules("mode.debug", "mode.release")
 
 set_encodings("utf-8")
 set_languages("c++23")
-add_requires("ftxui")
-add_packages("ftxui")
-add_includedirs("include/")
+-- add_requires("ftxui")
+-- add_packages("ftxui")
+-- add_includedirs("include/")
 
 includes("**/xmake.lua")--搜索目录下所有子构建
 
