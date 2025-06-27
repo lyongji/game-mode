@@ -7,3 +7,6 @@ target("交互屏幕")
   set_kind("binary")
   add_files("./交互屏幕.cpp")
 
+target("输入")
+  set_kind("binary")
+  add_files("./输入.cpp")
