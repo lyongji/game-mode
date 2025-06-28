@@ -6,6 +6,10 @@ class 球 {
 public:
   virtual ~球() = default;
   virtual std::unique_ptr<球> 克隆() const = 0;
+  // 需要访问派生类成员时
+  template <typename 子类型> 子类型 *作为() {
+    return dynamic_cast<子类型 *>(this);
+  }
 };
 
 // CRTP 模式
@@ -39,6 +43,10 @@ int main(int argc, char *argv[]) {
   // 使用 static_cast 静态转换 为派生类
   auto 火球2指针 = static_cast<火焰球 *>(火球2.get());
   std::println("{}", 火球2指针->温度); // 输出100
+
+  // 使用 父类 提供的访问函数
+  auto 火球2指针2 = 火球2->作为<火焰球>();
+  std::println("{}", 火球2指针2->温度); // 输出100
 
   return 0;
 }
