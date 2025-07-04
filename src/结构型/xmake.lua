@@ -18,3 +18,7 @@ target("装饰器模式")
 target("享元模式")
   set_kind("binary")
   add_files("./享元模式.cpp")
+
+target("代理模式")
+  set_kind("binary")
+  add_files("./代理模式.cpp")
