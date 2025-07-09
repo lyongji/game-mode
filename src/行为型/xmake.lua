@@ -26,3 +26,12 @@ target("状态模式")
 target("观察者模式")
   set_kind("binary")
   add_files("./观察者模式.cpp")
+
+target("策略模式")
+  set_kind("binary")
+  add_files("./策略模式.cpp")
+
+target("模板方法模式")
+  set_kind("binary")
+  add_files("./模板方法模式.cpp")
+
